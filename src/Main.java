@@ -13,14 +13,15 @@ public class Main {
         lstEmpleados.add(ea1);
         lstEmpleados.add(ev1);
         lstEmpleados.add(eh1);
-        int opcion;
+        int opcion,opcion1,opcion2;
         String respuesta;
         do{
             System.out.println("-----BIENVENIDO A EMPRESA DE JUANITA------");
             System.out.println("1.Crear Empleado Administrativo,2.Crear Empleado ventas,3.Crear Empleado por horas");
             System.out.println("4.Mostrar informacion");
             System.out.println("5.Buscar Empleado");
-            System.out.println("6.Saliendo del programa");
+            System.out.println("6.Lista de mayores de edad");
+            System.out.println("7.Salir");
             opcion = teclado.nextInt();
             switch (opcion){
                 case 1:
@@ -81,11 +82,57 @@ public class Main {
                     System.out.println("Empleado creado correctamente.");
                     break;
                 case 4:
-                    for (Empleado e : lstEmpleados) {
-                        System.out.println("----- INFORMACIÓN DEL EMPLEADO -----");
-                        e.mostrarInfo();
-                        System.out.println();
-                    }
+                    System.out.println("====BIENVENIDO AL LISTADO DE EMPLEADOS CUAL LISTA QUIERE VER?======");
+                    System.out.println("1.Empleados Administrativos");
+                    System.out.println("2.Empleados Ventas");
+                    System.out.println("3.Empleados por Horas");
+                    opcion2= teclado.nextInt();
+                    boolean encontradoTipo = false;
+                    do{
+                        switch (opcion2){
+                            case 1:
+                                System.out.println("------ ADMINISTRATIVOS ------");
+                                for (Empleado e : lstEmpleados) {
+                                    if (e instanceof EmpleadoAdministrativo) {
+                                        e.mostrarInfo();
+                                        System.out.println("----------------------");
+                                        encontradoTipo = true;
+                                    }
+                                }
+                                break;
+                            case 2:
+                                System.out.println("------ VENTAS ------");
+                                for (Empleado e : lstEmpleados) {
+                                    if (e instanceof EmpleadoVentas) {
+                                        e.mostrarInfo();
+                                        System.out.println("----------------------");
+                                        encontradoTipo = true;
+                                    }
+                                }
+                                break;
+                            case 3:
+                                System.out.println("------ POR HORAS ------");
+                                for (Empleado e : lstEmpleados) {
+                                    if (e instanceof Empleadohoras) {
+                                        e.mostrarInfo();
+                                        System.out.println("----------------------");
+                                        encontradoTipo = true;
+                                    }
+                                }
+                                break;
+                            default:
+                                System.out.println("Opción inválida");
+
+
+                        }
+                        if (!encontradoTipo) {
+                            System.out.println("No hay empleados de ese tipo registrados.");
+                        }
+
+                        break;
+
+                    }while(opcion2!=4);
+
                     break;
                 case 5:
                     teclado.nextLine();
@@ -97,6 +144,39 @@ public class Main {
                             System.out.println("Empleado encontrado:");
                             e.mostrarInfo();
                             encontrado = true;
+                            do{
+                                System.out.println("====BIENVENIDO A MENU=====");
+                                System.out.println("1.Calcular salario");
+                                System.out.println("2.Modificar Salario");
+                                System.out.println("3.Mostrar empleados mayores de edad");
+                                opcion1= teclado.nextInt();
+                                switch (opcion1){
+                                    case 1:
+                                        System.out.println("====BIENVENIDO A CALCULAR EL SALARIO=====");
+                                        double salario = e.calcularSalario();
+                                        System.out.println("El salario total es: " + salario);
+                                        break;
+                                    case 2:
+                                        System.out.println("====BIENVENIDO A MODIFICAR EL SALARIO=====");
+                                        if(lstEmpleados.size()>0){
+                                            System.out.println("Nuevo salario:");
+                                            double nuevosalario = teclado.nextDouble();
+                                            e.setSalarioBase(nuevosalario);
+                                            System.out.println("Salario actualizado.");
+                                        }else{
+                                            System.out.println("Empleado no registrado");
+                                        }
+                                        break;
+                                    default:
+                                        System.out.println("NO EXISTE EL EMPLEADO");
+
+
+
+
+                                }
+
+                            }while (opcion1 != 3);
+
                         }
                     }
                     if (!encontrado) {
@@ -105,16 +185,32 @@ public class Main {
 
                     break;
                 case 6:
+                    System.out.println("=====PRESENTANDO EL LISTADO DE MAYORES DE EDAD");
+                    boolean hayMayoresdeedad = false;
+
+                    for (Empleado emp : lstEmpleados) {
+                        if (emp.getEdad() >= 18) {
+                            emp.mostrarInfo();
+                            System.out.println("----------------------");
+                            hayMayoresdeedad = true;
+                        }
+                    }
+                    if (!hayMayoresdeedad) {
+                        System.out.println("No hay empleados mayores de edad.");
+                    }
+                case 7:
                     System.out.println("SALIENDO DEL PROGRAMA");
+                    break;
                 default:
                     System.out.println("NO EXISTE ESA OPCION");
+                    break;
 
 
 
             }
 
 
-        }while (opcion != 6);
+        }while (opcion != 7);
 
 
 

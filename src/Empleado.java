@@ -49,4 +49,7 @@ public class Empleado {
         System.out.println("Edad: "+ edad);
         System.out.println("Salario Base: "+ salarioBase);
     }
+    public double calcularSalario() {
+        return salarioBase;
+    }
 }

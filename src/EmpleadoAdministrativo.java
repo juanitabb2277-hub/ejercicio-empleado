@@ -34,5 +34,10 @@ public class EmpleadoAdministrativo extends Empleado{
         System.out.println("Edad: "+ edad);
         System.out.println("Salario Base: "+ salarioBase);
         System.out.println("Bonificicacion: "+ bonificacion);
+
+    }
+    @Override
+    public double calcularSalario() {
+        return salarioBase + bonificacion;
     }
 }
